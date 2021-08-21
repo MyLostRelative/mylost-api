@@ -1,0 +1,13 @@
+{
+    "type": "postgres",
+    "port": 5432,
+    "entities": ["dist/entities/**.entity.js"],
+    "migrationsRun": false,
+    "synchronize": true,
+    "logging": false,
+    "host": "localhost",
+    "database": "test",
+    "username": "root",
+    "password": "root",
+    "url": "postgres://root:root@localhost:5432/test"
+}
