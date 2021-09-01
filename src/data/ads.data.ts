@@ -8,10 +8,10 @@ export const ads: Ad[] = [
       'უფროსებთან იკამათებთ. სახლში ბევრი გადაუდებელი საქმე გამოგიჩნდებათ. გაისტუმრეთ კრედიტები, თქვენი ფინანსური კეთილდღეობა მალე გამოსწორდება. ნუ იქნებით უმადური.',
     imageUrl:
       'https://server6.intermedia.ge/article_images/small/201603/2016033020250110302.jpg',
-    gender: Gender.female,
+    gender: Gender.FEMALE,
     city: 'თბილისი',
-    relationType: RelationType.mother,
-    bloodType: BloodType.a,
+    relationType: RelationType.MOTHER,
+    bloodType: BloodType.A,
   },
   {
     id: 2,
@@ -20,10 +20,10 @@ export const ads: Ad[] = [
       'დღეს შეგიძლიათ საქმეში წარმატების იმედი გქონდეთ. თუ მანქანას მართავთ, ფრთხილად იყავით გზაზე. შეიძლება თქვენში მოულოდნელი ინტერესი გამოიწვიოს რელიგიამ. ძველი გრძნობების განახლების შანსი არსებობს.',
     imageUrl:
       'https://server6.intermedia.ge/article_images/small/201603/2016033020250110302.jpg',
-    gender: Gender.male,
+    gender: Gender.MALE,
     city: 'თბილისი',
-    relationType: RelationType.father,
-    bloodType: BloodType.b,
+    relationType: RelationType.FATHER,
+    bloodType: BloodType.B,
   },
   {
     id: 3,
@@ -32,9 +32,9 @@ export const ads: Ad[] = [
       'დღევანდელი დღე სითამამეს შეგმატებთ გადაწყვეტილებების მიღებაში. შეძლებისდაგვარად შეეცადეთ გადადოთ სამსახურებრივი მივლინება. სასიხარულო და სასარგებლო იქნება ნათესავებთან და მეგობრებთან ურთიერთობა. ყველაფერს გულთან ახლოს ნუ მიიტანთ.',
     imageUrl:
       'https://server6.intermedia.ge/article_images/small/201603/2016033020250110302.jpg',
-    gender: Gender.female,
+    gender: Gender.FEMALE,
     city: 'ქუთაისი',
-    relationType: RelationType.mother,
+    relationType: RelationType.MOTHER,
   },
   {
     id: 4,

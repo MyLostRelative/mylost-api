@@ -10,23 +10,23 @@ export interface Ad {
 }
 
 export enum Gender {
-  male = 1,
-  female,
-  other,
+  MALE = 'male',
+  FEMALE = 'female',
+  OTHER = 'other',
 }
 
 export enum BloodType {
-  a = 1,
-  b,
-  ab,
-  o,
+  A = 'a',
+  B = 'b',
+  AB = 'ab',
+  O = 'o',
 }
 
 export enum RelationType {
-  mother = 1,
-  father,
-  sister,
-  brother,
-  friend,
-  other,
+  MOTHER = 'mother',
+  FATHER = 'father',
+  SISTER = 'sister',
+  BROTHER = 'brother',
+  FRIENT = 'friend',
+  OTHER = 'other',
 }

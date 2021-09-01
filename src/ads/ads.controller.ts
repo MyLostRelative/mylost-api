@@ -16,13 +16,13 @@ export class AdsController {
   constructor(private adsService: AdsService) {}
 
   @Get()
-  getAds(): Ad[] {
-    return this.adsService.getAds();
+  getAds(): { result: Ad[] } {
+    return { result: this.adsService.getAds() };
   }
 
   @Get('/:adId')
-  getAd(@Param('adId', ParseIntPipe) idId: number): Ad {
-    return this.adsService.getAd(idId);
+  getAd(@Param('adId', ParseIntPipe) idId: number): { result: Ad } {
+    return { result: this.adsService.getAd(idId) };
   }
 
   @Post()
@@ -30,9 +30,9 @@ export class AdsController {
     this.adsService.createAd(ad);
   }
 
-  @Delete('/:id')
-  deleteAd(@Param('id', ParseIntPipe) id: number): void {
-    this.adsService.deleteAd(id);
+  @Delete('/:adId')
+  deleteAd(@Param('adId', ParseIntPipe) adId: number): void {
+    this.adsService.deleteAd(adId);
   }
 
   @Put()

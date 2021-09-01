@@ -16,13 +16,13 @@ export class BlogsController {
   constructor(private blogsService: BlogsService) {}
 
   @Get()
-  getBlogs(): Blog[] {
-    return this.blogsService.getBlogs();
+  getBlogs(): { result: Blog[] } {
+    return { result: this.blogsService.getBlogs() };
   }
 
   @Get('/:blogId')
-  getBlog(@Param('blogId', ParseIntPipe) blogId: number): Blog {
-    return this.blogsService.getBlog(blogId);
+  getBlog(@Param('blogId', ParseIntPipe) blogId: number): { result: Blog } {
+    return { result: this.blogsService.getBlog(blogId) };
   }
 
   @Post()
@@ -30,9 +30,9 @@ export class BlogsController {
     this.blogsService.createBlog(blog);
   }
 
-  @Delete('/:id')
-  deleteBlog(@Param('id', ParseIntPipe) id: number): void {
-    this.blogsService.deleteBlog(id);
+  @Delete('/:blogId')
+  deleteBlog(@Param('blogId', ParseIntPipe) blogId: number): void {
+    this.blogsService.deleteBlog(blogId);
   }
 
   @Put()
