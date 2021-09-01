@@ -16,13 +16,13 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  getUsers(): User[] {
-    return this.usersService.getUsers();
+  getUsers(): { result: User[] } {
+    return { result: this.usersService.getUsers() };
   }
 
   @Get('/:userId')
-  getUser(@Param('userId', ParseIntPipe) idId: number): User {
-    return this.usersService.getUser(idId);
+  getUser(@Param('userId', ParseIntPipe) idId: number): { result: User } {
+    return { result: this.usersService.getUser(idId) };
   }
 
   @Post()
