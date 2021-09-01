@@ -27,7 +27,9 @@ export class BlogsService {
   }
 
   updateBlog(blog: Blog): void {
-    const foundIndex = this.blogs.findIndex((blog) => blog.id === blog.id);
+    const foundIndex = this.blogs.findIndex(
+      (blogItem) => blogItem.id === +blog.id,
+    );
     if (foundIndex > -1) {
       this.blogs[foundIndex] = blog;
     }

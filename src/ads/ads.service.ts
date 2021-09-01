@@ -27,7 +27,7 @@ export class AdsService {
   }
 
   updateAd(ad: Ad): void {
-    const foundIndex = this.ads.findIndex((ad) => ad.id === ad.id);
+    const foundIndex = this.ads.findIndex((adItem) => adItem.id === +ad.id);
     if (foundIndex > -1) {
       this.ads[foundIndex] = ad;
     }

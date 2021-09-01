@@ -27,7 +27,9 @@ export class UsersService {
   }
 
   updateUser(user: User): void {
-    const foundIndex = this.users.findIndex((user) => user.id === user.id);
+    const foundIndex = this.users.findIndex(
+      (userItem) => userItem.id === +user.id,
+    );
     if (foundIndex > -1) {
       this.users[foundIndex] = user;
     }
