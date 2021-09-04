@@ -1,6 +1,6 @@
-import { UserInfo } from 'src/models/user';
+import { UserInfoDTO } from 'src/users/dto/user-info.dto';
 
-export const users: UserInfo[] = [
+export const users: UserInfoDTO[] = [
   {
     userName: 'ijiki',
     password: '1234iuri',

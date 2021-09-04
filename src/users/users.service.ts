@@ -1,10 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { User, UserInfo } from '../models/user';
+import { User } from '../models/user';
 import { users } from '../data/users.data';
 import * as bcrypt from 'bcrypt';
-import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { AuthCredentialsDTO } from './dto/auth-credentials.dto';
 import { JwtPayload } from './jwt-payload.interface';
 import { JwtService } from '@nestjs/jwt';
+import { UserInfoDTO } from './dto/user-info.dto';
 @Injectable()
 export class UsersService {
   private usersDatabase: User[] = [];
@@ -39,7 +40,7 @@ export class UsersService {
     return this.usersDatabase.find((user) => user.id === userId);
   }
 
-  async createUser(userInfo: UserInfo): Promise<any> {
+  async createUser(userInfo: UserInfoDTO): Promise<any> {
     const sameName = this.usersDatabase.find(
       (curUser) => curUser.userName === userInfo.userName,
     );
@@ -72,7 +73,7 @@ export class UsersService {
     return 'user registered';
   }
 
-  async loginUser(authInfo: AuthCredentialsDto): Promise<any> {
+  async loginUser(authInfo: AuthCredentialsDTO): Promise<any> {
     console.log(authInfo.username);
     const user = this.usersDatabase.find(
       (curUser) => curUser.userName === authInfo.username,

@@ -8,8 +8,9 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { User, UserInfo } from 'src/models/user';
-import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { User } from 'src/models/user';
+import { AuthCredentialsDTO } from './dto/auth-credentials.dto';
+import { UserInfoDTO } from './dto/user-info.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -29,7 +30,7 @@ export class UsersController {
   }
 
   @Post('/register')
-  async createUser(@Body() userInfo: UserInfo): Promise<any> {
+  async createUser(@Body() userInfo: UserInfoDTO): Promise<any> {
     console.log(userInfo);
     return this.usersService.createUser(userInfo);
   }
@@ -40,7 +41,7 @@ export class UsersController {
   }
 
   @Post('/login')
-  async loginUser(@Body() authInfo: AuthCredentialsDto): Promise<void> {
+  async loginUser(@Body() authInfo: AuthCredentialsDTO): Promise<void> {
     return this.usersService.loginUser(authInfo);
   }
 
