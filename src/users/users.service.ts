@@ -10,7 +10,7 @@ import { UserInfoDTO } from './dto/user-info.dto';
 export class UsersService {
   private usersDatabase: User[] = [];
   private logger = new Logger('AuthService');
-  constructor() {
+  constructor(private jwtService: JwtService) {
     users.map(async (curUser) => {
       const newUser: User = {
         userName: curUser.userName,
@@ -85,7 +85,10 @@ export class UsersService {
       return 'wrong password';
     }
 
-    return user;
+    const payload = { username: user.userName, sub: user.id };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
     // const payload: JwtPayload = { username: user.userName };
     // const accessToken = await this.jwtService.sign(payload);
     // this.logger.debug(
@@ -93,6 +96,8 @@ export class UsersService {
     // );
     // user.id = this.users.length ? this.users[this.users.length - 1].id + 1 : 1;
     // this.users.push(user);
+
+    // return user;
   }
 
   deleteUser(userId: number): void {
