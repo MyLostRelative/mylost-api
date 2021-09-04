@@ -2,6 +2,8 @@ export interface User {
   id: number;
   userName: string;
   password: string;
+  salt?: string;
+  passwordHash?: string;
   firstName: string;
   lastName: string;
   avatarURL?: string;

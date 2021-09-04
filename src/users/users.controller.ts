@@ -9,6 +9,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { User } from 'src/models/user';
+import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -38,8 +39,8 @@ export class UsersController {
   }
 
   @Post('/login')
-  async loginUser(@Body() user: User): Promise<void> {
-    this.usersService.loginUser(user);
+  async loginUser(@Body() authInfo: AuthCredentialsDto): Promise<void> {
+    return this.usersService.loginUser(authInfo);
   }
 
   @Put()
