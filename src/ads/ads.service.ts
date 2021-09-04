@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Ad } from '../models/ad';
 import { ads } from '../data/ads.data';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AdsService {
   private ads: Ad[] = [];
-  constructor() {
+  constructor(private userService: UsersService) {
     this.ads = ads;
   }
 
@@ -18,6 +19,7 @@ export class AdsService {
   }
 
   createAd(ad: Ad): void {
+    // this.userService.getUser()
     ad.id = this.ads.length ? this.ads[this.ads.length - 1].id + 1 : 1;
     this.ads.push(ad);
   }

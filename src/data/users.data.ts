@@ -15,4 +15,12 @@ export const users: UserInfoDTO[] = [
     lastName: 'gabisonia',
     email: 'gelaia@gmail.com',
   },
+  {
+    userName: 'amanda123',
+    password: 'amanda123',
+    firstName: 'amanda',
+    lastName: 'cerny',
+    email: 'amanda123cerny@gmail.com',
+    mobileNumber: '+1 123 456 789',
+  },
 ];
