@@ -16,27 +16,29 @@ export class AdsController {
   constructor(private adsService: AdsService) {}
 
   @Get()
-  getAds(): { result: Ad[] } {
+  async getAds(): Promise<{ result: Ad[] }> {
     return { result: this.adsService.getAds() };
   }
 
   @Get('/:adId')
-  getAd(@Param('adId', ParseIntPipe) idId: number): { result: Ad } {
+  async getAd(
+    @Param('adId', ParseIntPipe) idId: number,
+  ): Promise<{ result: Ad }> {
     return { result: this.adsService.getAd(idId) };
   }
 
   @Post()
-  createAd(@Body() ad: Ad): void {
+  async createAd(@Body() ad: Ad): Promise<void> {
     this.adsService.createAd(ad);
   }
 
   @Delete('/:adId')
-  deleteAd(@Param('adId', ParseIntPipe) adId: number): void {
+  async deleteAd(@Param('adId', ParseIntPipe) adId: number): Promise<void> {
     this.adsService.deleteAd(adId);
   }
 
   @Put()
-  updateAd(@Body() ad: Ad): void {
+  async updateAd(@Body() ad: Ad): Promise<void> {
     this.adsService.updateAd(ad);
   }
 }

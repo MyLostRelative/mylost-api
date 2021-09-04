@@ -16,27 +16,31 @@ export class BlogsController {
   constructor(private blogsService: BlogsService) {}
 
   @Get()
-  getBlogs(): { result: Blog[] } {
+  async getBlogs(): Promise<{ result: Blog[] }> {
     return { result: this.blogsService.getBlogs() };
   }
 
   @Get('/:blogId')
-  getBlog(@Param('blogId', ParseIntPipe) blogId: number): { result: Blog } {
+  async getBlog(@Param('blogId', ParseIntPipe) blogId: number): Promise<{
+    result: Blog;
+  }> {
     return { result: this.blogsService.getBlog(blogId) };
   }
 
   @Post()
-  createBlog(@Body() blog: Blog): void {
+  async createBlog(@Body() blog: Blog): Promise<void> {
     this.blogsService.createBlog(blog);
   }
 
   @Delete('/:blogId')
-  deleteBlog(@Param('blogId', ParseIntPipe) blogId: number): void {
+  async deleteBlog(
+    @Param('blogId', ParseIntPipe) blogId: number,
+  ): Promise<void> {
     this.blogsService.deleteBlog(blogId);
   }
 
   @Put()
-  updateBlog(@Body() blog: Blog): void {
+  async updateBlog(@Body() blog: Blog): Promise<void> {
     this.blogsService.updateBlog(blog);
   }
 }
