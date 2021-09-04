@@ -16,27 +16,34 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  getUsers(): { result: User[] } {
+  async getUsers(): Promise<{ result: User[] }> {
     return { result: this.usersService.getUsers() };
   }
 
   @Get('/:userId')
-  getUser(@Param('userId', ParseIntPipe) idId: number): { result: User } {
+  async getUser(
+    @Param('userId', ParseIntPipe) idId: number,
+  ): Promise<{ result: User }> {
     return { result: this.usersService.getUser(idId) };
   }
 
-  @Post()
-  createUser(@Body() user: User): void {
-    this.usersService.createUser(user);
+  @Post('/register')
+  async createUser(@Body() user: User): Promise<any> {
+    return this.usersService.createUser(user);
   }
 
   @Delete('/:id')
-  deleteUser(@Param('id', ParseIntPipe) id: number): void {
+  async deleteUser(@Param('id', ParseIntPipe) id: number): Promise<void> {
     this.usersService.deleteUser(id);
   }
 
+  @Post('/login')
+  async loginUser(@Body() user: User): Promise<void> {
+    this.usersService.loginUser(user);
+  }
+
   @Put()
-  updateUser(@Body() user: User): void {
+  async updateUser(@Body() user: User): Promise<void> {
     this.usersService.updateUser(user);
   }
 }
