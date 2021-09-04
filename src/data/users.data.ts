@@ -1,8 +1,7 @@
-import { User } from 'src/models/user';
+import { UserInfo } from 'src/models/user';
 
-export const users: User[] = [
+export const users: UserInfo[] = [
   {
-    id: 1,
     userName: 'ijiki',
     password: '1234iuri',
     firstName: 'iuri',
@@ -10,7 +9,6 @@ export const users: User[] = [
     email: 'ijiki16@gmail.com',
   },
   {
-    id: 2,
     userName: 'gelaia',
     password: '1234gela',
     firstName: 'gela',

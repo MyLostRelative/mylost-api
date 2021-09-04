@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { User } from '../models/user';
+import { User, UserInfo } from '../models/user';
 import { users } from '../data/users.data';
 import * as bcrypt from 'bcrypt';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
@@ -11,9 +11,23 @@ export class UsersService {
   private logger = new Logger('AuthService');
   constructor() {
     users.map(async (curUser) => {
-      curUser.salt = await bcrypt.genSalt();
-      curUser.passwordHash = await bcrypt.hash(curUser.password, curUser.salt);
-      this.usersDatabase.push(curUser);
+      const newUser: User = {
+        userName: curUser.userName,
+        firstName: curUser.firstName,
+        lastName: curUser.lastName,
+        avatarURL: curUser.avatarURL,
+        email: curUser.email,
+        mobileNumber: curUser.mobileNumber,
+        salt: '',
+        passwordHash: '',
+        id: -1,
+      };
+      newUser.salt = await bcrypt.genSalt();
+      newUser.passwordHash = await bcrypt.hash(curUser.password, newUser.salt);
+      newUser.id = this.usersDatabase.length
+        ? this.usersDatabase[this.usersDatabase.length - 1].id + 1
+        : 1;
+      this.usersDatabase.push(newUser);
     });
   }
 
@@ -25,25 +39,36 @@ export class UsersService {
     return this.usersDatabase.find((user) => user.id === userId);
   }
 
-  async createUser(user: User): Promise<any> {
+  async createUser(userInfo: UserInfo): Promise<any> {
     const sameName = this.usersDatabase.find(
-      (curUser) => curUser.userName === user.userName,
+      (curUser) => curUser.userName === userInfo.userName,
     );
     if (sameName !== undefined) return 'username is used';
 
     const sameEmail = this.usersDatabase.find(
-      (curUser) => curUser.email === user.email,
+      (curUser) => curUser.email === userInfo.email,
     );
     if (sameEmail !== undefined) return 'email is used';
+    const newUser: User = {
+      userName: userInfo.userName,
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
+      avatarURL: userInfo.avatarURL,
+      email: userInfo.email,
+      mobileNumber: userInfo.mobileNumber,
+      salt: '',
+      passwordHash: '',
+      id: -1,
+    };
 
-    user.salt = await bcrypt.genSalt();
-    user.passwordHash = await bcrypt.hash(user.password, user.salt);
+    newUser.salt = await bcrypt.genSalt();
+    newUser.passwordHash = await bcrypt.hash(userInfo.password, newUser.salt);
     // const hashedPassword = await bcrypt.hash(user.password, 12);
     // console.log(hashedPassword);
-    user.id = this.usersDatabase.length
+    newUser.id = this.usersDatabase.length
       ? this.usersDatabase[this.usersDatabase.length - 1].id + 1
       : 1;
-    this.usersDatabase.push(user);
+    this.usersDatabase.push(newUser);
     return 'user registered';
   }
 
@@ -55,7 +80,7 @@ export class UsersService {
     if (user === undefined) return 'user not found';
 
     if (!(await bcrypt.compare(authInfo.password, user.passwordHash))) {
-      console.log(user.password);
+      console.log(user.passwordHash);
       return 'wrong password';
     }
 

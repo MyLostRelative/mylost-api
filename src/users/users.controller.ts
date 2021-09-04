@@ -8,7 +8,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { User } from 'src/models/user';
+import { User, UserInfo } from 'src/models/user';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { UsersService } from './users.service';
 
@@ -29,8 +29,9 @@ export class UsersController {
   }
 
   @Post('/register')
-  async createUser(@Body() user: User): Promise<any> {
-    return this.usersService.createUser(user);
+  async createUser(@Body() userInfo: UserInfo): Promise<any> {
+    console.log(userInfo);
+    return this.usersService.createUser(userInfo);
   }
 
   @Delete('/:id')
