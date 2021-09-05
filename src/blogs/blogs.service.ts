@@ -16,7 +16,7 @@ export class BlogsService {
         title: blog.title,
         description: blog.description,
         imageUrl: blog.imageUrl,
-        createData: curDate,
+        createDate: curDate,
       };
       this.blogsDatabase.push(newBlog);
     });

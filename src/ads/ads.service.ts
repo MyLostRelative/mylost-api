@@ -22,7 +22,7 @@ export class AdsService {
         relationType: ad.relationType,
         bloodType: ad.bloodType,
         userID: 1,
-        createData: curDate,
+        createDate: curDate,
       };
       this.adsDatabase.push(newAd);
     });

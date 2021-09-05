@@ -8,7 +8,7 @@ export class Ad {
   relationType?: RelationType;
   bloodType?: BloodType;
   userID: number;
-  createData: Date;
+  createDate: Date;
 }
 
 export enum Gender {
