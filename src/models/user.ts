@@ -1,3 +1,5 @@
+import { Gender } from './ad';
+
 export class User {
   id: number;
   userName: string;
@@ -8,4 +10,12 @@ export class User {
   avatarURL?: string;
   email: string;
   mobileNumber?: string;
+  role: Role;
+}
+
+export enum Role {
+  BLOCKED = 'blocked',
+  MEMBER = 'member',
+  MODERATOR = 'moderator',
+  ADMIN = 'admin',
 }

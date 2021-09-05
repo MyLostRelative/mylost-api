@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { User } from '../models/user';
+import { Role, User } from '../models/user';
 import { users } from '../data/users.data';
 import * as bcrypt from 'bcrypt';
 import { AuthCredentialsDTO } from '../dto/auth-credentials.dto';
@@ -22,6 +22,7 @@ export class UsersService {
         salt: '',
         passwordHash: '',
         id: -1,
+        role: curUser.role,
       };
       newUser.salt = await bcrypt.genSalt();
       newUser.passwordHash = await bcrypt.hash(curUser.password, newUser.salt);
@@ -60,6 +61,7 @@ export class UsersService {
       salt: '',
       passwordHash: '',
       id: -1,
+      role: Role.MEMBER,
     };
 
     newUser.salt = await bcrypt.genSalt();
@@ -70,7 +72,16 @@ export class UsersService {
       ? this.usersDatabase[this.usersDatabase.length - 1].id + 1
       : 1;
     this.usersDatabase.push(newUser);
-    return 'user registered';
+
+    const payload: JwtPayload = { username: newUser.userName, id: newUser.id };
+    const accessToken = await this.jwtService.sign(payload);
+    this.logger.debug(
+      `Generated JWT Token with payload ${JSON.stringify(payload)}`,
+    );
+
+    return {
+      access_token: accessToken,
+    };
   }
 
   async loginUser(authInfo: AuthCredentialsDTO): Promise<any> {
