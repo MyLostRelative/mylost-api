@@ -4,34 +4,51 @@ import { blogs } from '../data/blogs.data';
 
 @Injectable()
 export class BlogsService {
-  private blogs: Blog[] = [];
+  private blogsDatabase: Blog[] = [];
   constructor() {
-    this.blogs = blogs;
+    blogs.map((blog) => {
+      const curDate: Date = new Date();
+      const newId = this.blogsDatabase.length
+        ? this.blogsDatabase[this.blogsDatabase.length - 1].id + 1
+        : 1;
+      const newBlog: Blog = {
+        id: newId,
+        title: blog.title,
+        description: blog.description,
+        imageUrl: blog.imageUrl,
+        createData: curDate,
+      };
+      this.blogsDatabase.push(newBlog);
+    });
   }
 
   getBlogs(): Blog[] {
-    return this.blogs;
+    return this.blogsDatabase;
   }
 
   getBlog(blogId: number): Blog {
-    return this.blogs.find((blog) => blog.id === blogId);
+    return this.blogsDatabase.find((blog) => blog.id === blogId);
   }
 
   createBlog(blog: Blog): void {
-    blog.id = this.blogs.length ? this.blogs[this.blogs.length - 1].id + 1 : 1;
-    this.blogs.push(blog);
+    blog.id = this.blogsDatabase.length
+      ? this.blogsDatabase[this.blogsDatabase.length - 1].id + 1
+      : 1;
+    this.blogsDatabase.push(blog);
   }
 
   deleteBlog(blogId: number): void {
-    this.blogs = this.blogs.filter((blog) => blog.id !== blogId);
+    this.blogsDatabase = this.blogsDatabase.filter(
+      (blog) => blog.id !== blogId,
+    );
   }
 
   updateBlog(blog: Blog): void {
-    const foundIndex = this.blogs.findIndex(
+    const foundIndex = this.blogsDatabase.findIndex(
       (blogItem) => blogItem.id === +blog.id,
     );
     if (foundIndex > -1) {
-      this.blogs[foundIndex] = blog;
+      this.blogsDatabase[foundIndex] = blog;
     }
   }
 }
