@@ -9,7 +9,6 @@ import {
   Put,
 } from '@nestjs/common';
 import { User } from 'src/models/user';
-import { AuthCredentialsDTO } from '../dto/auth-credentials.dto';
 import { UserInfoDTO } from '../dto/user-info.dto';
 import { UsersService } from './users.service';
 
@@ -23,7 +22,7 @@ export class UsersController {
   }
 
   @Get('/:userId')
-  async getUser(
+  async getUserBy(
     @Param('userId', ParseIntPipe) idId: number,
   ): Promise<{ result: User }> {
     return { result: this.usersService.getUser(idId) };
@@ -37,11 +36,6 @@ export class UsersController {
   @Delete('/:id')
   async deleteUser(@Param('id', ParseIntPipe) id: number): Promise<void> {
     this.usersService.deleteUser(id);
-  }
-
-  @Post('/login')
-  async loginUser(@Body() authInfo: AuthCredentialsDTO): Promise<void> {
-    return this.usersService.loginUser(authInfo);
   }
 
   @Put()

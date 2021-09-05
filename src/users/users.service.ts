@@ -6,6 +6,7 @@ import { AuthCredentialsDTO } from '../dto/auth-credentials.dto';
 import { JwtPayload } from './jwt-payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { UserInfoDTO } from '../dto/user-info.dto';
+
 @Injectable()
 export class UsersService {
   private usersDatabase: User[] = [];
@@ -26,7 +27,6 @@ export class UsersService {
         avatarURL: curUser.avatarURL,
         email: curUser.email,
         mobileNumber: curUser.mobileNumber,
-        salt: curSalt,
         passwordHash: hash,
         role: curUser.role,
       };
@@ -43,6 +43,10 @@ export class UsersService {
     return this.usersDatabase.find((user) => user.id === userId);
   }
 
+  async findOne(username: string): Promise<User | undefined> {
+    return this.usersDatabase.find((curUser) => curUser.userName === username);
+  }
+
   async createUser(userInfo: UserInfoDTO): Promise<any> {
     const sameName = this.usersDatabase.find(
       (curUser) => curUser.userName === userInfo.userName,
@@ -53,6 +57,13 @@ export class UsersService {
       (curUser) => curUser.email === userInfo.email,
     );
     if (sameEmail !== undefined) return 'email is used';
+
+    const curSalt = await bcrypt.genSalt();
+    const hash = await bcrypt.hash(userInfo.password, curSalt);
+    const newID = this.usersDatabase.length
+      ? this.usersDatabase[this.usersDatabase.length - 1].id + 1
+      : 1;
+
     const newUser: User = {
       userName: userInfo.userName,
       firstName: userInfo.firstName,
@@ -60,14 +71,10 @@ export class UsersService {
       avatarURL: userInfo.avatarURL,
       email: userInfo.email,
       mobileNumber: userInfo.mobileNumber,
-      salt: '',
-      passwordHash: '',
-      id: -1,
+      passwordHash: hash,
+      id: newID,
       role: Role.MEMBER,
     };
-
-    newUser.salt = await bcrypt.genSalt();
-    newUser.passwordHash = await bcrypt.hash(userInfo.password, newUser.salt);
 
     newUser.id = this.usersDatabase.length
       ? this.usersDatabase[this.usersDatabase.length - 1].id + 1
@@ -75,28 +82,6 @@ export class UsersService {
     this.usersDatabase.push(newUser);
 
     const payload: JwtPayload = { username: newUser.userName, id: newUser.id };
-    const accessToken = await this.jwtService.sign(payload);
-    this.logger.debug(
-      `Generated JWT Token with payload ${JSON.stringify(payload)}`,
-    );
-
-    return {
-      access_token: accessToken,
-    };
-  }
-
-  async loginUser(authInfo: AuthCredentialsDTO): Promise<any> {
-    const user = this.usersDatabase.find(
-      (curUser) => curUser.userName === authInfo.username,
-    );
-    if (user === undefined) return 'user not found';
-
-    if (!(await bcrypt.compare(authInfo.password, user.passwordHash))) {
-      console.log(user.passwordHash);
-      return 'wrong password';
-    }
-
-    const payload: JwtPayload = { username: user.userName, id: user.id };
     const accessToken = await this.jwtService.sign(payload);
     this.logger.debug(
       `Generated JWT Token with payload ${JSON.stringify(payload)}`,

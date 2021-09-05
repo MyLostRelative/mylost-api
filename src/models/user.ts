@@ -1,9 +1,6 @@
-import { Gender } from './ad';
-
 export class User {
   id: number;
   userName: string;
-  salt?: string;
   passwordHash?: string;
   firstName: string;
   lastName: string;
