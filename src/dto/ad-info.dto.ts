@@ -1,6 +1,13 @@
 import { Gender, RelationType, BloodType } from 'src/models/ad';
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsString,
+  IsNotEmpty,
+  IsNumber,
+  MaxLength,
+  IsOptional,
+  IsEnum,
+} from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class AdInfoDTO {
   @ApiProperty()
@@ -18,21 +25,53 @@ export class AdInfoDTO {
   @IsNotEmpty()
   description: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsString()
-  @IsNotEmpty()
   imageUrl?: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   gender?: Gender;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsString()
   city?: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsEnum(RelationType)
   relationType?: RelationType;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsEnum(BloodType)
+  bloodType?: BloodType;
+}
+
+export class AdSearchDTO {
+  @ApiPropertyOptional()
+  @IsOptional()
+  @MaxLength(64)
+  @IsString()
+  query: string | null = null;
+
+  // @ApiPropertyOptional()
+  // @IsOptional()
+  // @IsEnum(JobState)
+  // state: JobState | null = null;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsEnum(Gender)
+  gender?: Gender | null = null;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  city?: string | null = null;
+
+  @ApiPropertyOptional()
+  @IsEnum(RelationType)
+  relationType?: RelationType;
+
+  @ApiPropertyOptional()
+  @IsEnum(BloodType)
   bloodType?: BloodType;
 }

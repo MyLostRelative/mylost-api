@@ -3,7 +3,7 @@ import { Role } from 'src/models/user';
 
 export const users: UserInfoDTO[] = [
   {
-    userName: 'ijiki',
+    username: 'ijiki',
     password: '1234iuri',
     firstName: 'iuri',
     lastName: 'jikidze',
@@ -12,7 +12,7 @@ export const users: UserInfoDTO[] = [
     role: Role.ADMIN,
   },
   {
-    userName: 'gelaia',
+    username: 'gelaia',
     password: '1234gela',
     firstName: 'gela',
     lastName: 'gabisonia',
@@ -21,7 +21,7 @@ export const users: UserInfoDTO[] = [
     role: Role.MODERATOR,
   },
   {
-    userName: 'amanda123',
+    username: 'amanda123',
     password: 'amanda123',
     firstName: 'amanda',
     lastName: 'cerny',
@@ -30,7 +30,7 @@ export const users: UserInfoDTO[] = [
     role: Role.ADMIN,
   },
   {
-    userName: 'nat',
+    username: 'nat',
     password: '1234nat',
     firstName: 'nat',
     lastName: 'tan',

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Ad } from '../models/ad';
 import { ads } from '../data/ads.data';
-import { AdInfoDTO } from 'src/dto/ad-info.dto';
+import { AdInfoDTO, AdSearchDTO } from 'src/dto/ad-info.dto';
 
 @Injectable()
 export class AdsService {
@@ -26,6 +26,10 @@ export class AdsService {
       };
       this.adsDatabase.push(newAd);
     });
+  }
+
+  async search(query: AdSearchDTO): Promise<{ result: Ad[] }> {
+    return { result: this.adsDatabase };
   }
 
   async getAds(): Promise<{ result: Ad[] }> {

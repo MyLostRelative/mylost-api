@@ -7,14 +7,20 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
-import { AdInfoDTO } from 'src/dto/ad-info.dto';
+import { AdInfoDTO, AdSearchDTO } from 'src/dto/ad-info.dto';
 import { Ad } from 'src/models/ad';
 import { AdsService } from './ads.service';
 
 @Controller('ads')
 export class AdsController {
   constructor(private adsService: AdsService) {}
+
+  @Get('/search')
+  async searchAds(@Query() query: AdSearchDTO): Promise<{ result: Ad[] }> {
+    return this.adsService.search(query);
+  }
 
   @Get()
   async getAds(): Promise<{ result: Ad[] }> {

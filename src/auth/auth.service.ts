@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload = { username: user.userName, sub: user.id };
+    const payload = { username: user.username, sub: user.id };
     return {
       access_token: this.jwtService.sign(payload),
     };
@@ -30,6 +30,7 @@ export class AuthService {
   async profile(user: any) {
     const curUser = await this.usersService.findOne(user.username);
     const { passwordHash, ...result } = curUser;
+
     return { result: result };
   }
 }

@@ -20,7 +20,7 @@ export class UsersService {
 
       const newUser: User = {
         id: newID,
-        userName: curUser.userName,
+        username: curUser.username,
         firstName: curUser.firstName,
         lastName: curUser.lastName,
         avatarURL: curUser.avatarURL,
@@ -46,12 +46,12 @@ export class UsersService {
   }
 
   async findOne(username: string): Promise<User | undefined> {
-    return this.usersDatabase.find((curUser) => curUser.userName === username);
+    return this.usersDatabase.find((curUser) => curUser.username === username);
   }
 
   async createUser(userInfo: UserInfoDTO): Promise<any> {
     const sameName = this.usersDatabase.find(
-      (curUser) => curUser.userName === userInfo.userName,
+      (curUser) => curUser.username === userInfo.username,
     );
     if (sameName !== undefined) return 'username is used';
 
@@ -67,7 +67,7 @@ export class UsersService {
       : 1;
 
     const newUser: User = {
-      userName: userInfo.userName,
+      username: userInfo.username,
       firstName: userInfo.firstName,
       lastName: userInfo.lastName,
       avatarURL: userInfo.avatarURL,
@@ -83,7 +83,7 @@ export class UsersService {
       : 1;
     this.usersDatabase.push(newUser);
 
-    const payload: JwtPayload = { username: newUser.userName, id: newUser.id };
+    const payload: JwtPayload = { username: newUser.username, id: newUser.id };
     const accessToken = await this.jwtService.sign(payload);
     this.logger.debug(
       `Generated JWT Token with payload ${JSON.stringify(payload)}`,

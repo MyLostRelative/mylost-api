@@ -6,7 +6,7 @@ export class UserInfoDTO {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  userName: string;
+  username: string;
 
   @ApiProperty()
   @IsString()
