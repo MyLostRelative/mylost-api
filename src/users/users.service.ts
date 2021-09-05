@@ -85,19 +85,15 @@ export class UsersService {
       return 'wrong password';
     }
 
-    const payload = { username: user.userName, sub: user.id };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
-    // const payload: JwtPayload = { username: user.userName };
-    // const accessToken = await this.jwtService.sign(payload);
-    // this.logger.debug(
-    //   `Generated JWT Token with payload ${JSON.stringify(payload)}`,
-    // );
-    // user.id = this.users.length ? this.users[this.users.length - 1].id + 1 : 1;
-    // this.users.push(user);
+    const payload: JwtPayload = { username: user.userName, id: user.id };
+    const accessToken = await this.jwtService.sign(payload);
+    this.logger.debug(
+      `Generated JWT Token with payload ${JSON.stringify(payload)}`,
+    );
 
-    // return user;
+    return {
+      access_token: accessToken,
+    };
   }
 
   deleteUser(userId: number): void {
