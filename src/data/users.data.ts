@@ -7,6 +7,7 @@ export const users: UserInfoDTO[] = [
     firstName: 'iuri',
     lastName: 'jikidze',
     email: 'ijiki16@gmail.com',
+    mobileNumber: '+1 123 456 789',
   },
   {
     userName: 'gelaia',
@@ -14,6 +15,7 @@ export const users: UserInfoDTO[] = [
     firstName: 'gela',
     lastName: 'gabisonia',
     email: 'gelaia@gmail.com',
+    mobileNumber: '+1 123 456 789',
   },
   {
     userName: 'amanda123',

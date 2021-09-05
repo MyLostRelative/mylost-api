@@ -33,7 +33,7 @@ export class UserInfoDTO {
 
   @ApiProperty()
   @IsString()
-  mobileNumber?: string;
+  mobileNumber: string;
 
   role?: Role;
 }
