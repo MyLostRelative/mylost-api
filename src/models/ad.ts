@@ -29,6 +29,8 @@ export enum RelationType {
   FATHER = 'father',
   SISTER = 'sister',
   BROTHER = 'brother',
-  FRIENT = 'friend',
+  SON = 'son',
+  DAUGHTER = 'daughter',
+  FRIEND = 'friend',
   OTHER = 'other',
 }
