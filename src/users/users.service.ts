@@ -66,8 +66,7 @@ export class UsersService {
 
     newUser.salt = await bcrypt.genSalt();
     newUser.passwordHash = await bcrypt.hash(userInfo.password, newUser.salt);
-    // const hashedPassword = await bcrypt.hash(user.password, 12);
-    // console.log(hashedPassword);
+
     newUser.id = this.usersDatabase.length
       ? this.usersDatabase[this.usersDatabase.length - 1].id + 1
       : 1;
@@ -85,7 +84,6 @@ export class UsersService {
   }
 
   async loginUser(authInfo: AuthCredentialsDTO): Promise<any> {
-    console.log(authInfo.username);
     const user = this.usersDatabase.find(
       (curUser) => curUser.userName === authInfo.username,
     );

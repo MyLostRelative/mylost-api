@@ -31,7 +31,6 @@ export class UsersController {
 
   @Post('/register')
   async createUser(@Body() userInfo: UserInfoDTO): Promise<any> {
-    console.log(userInfo);
     return this.usersService.createUser(userInfo);
   }
 

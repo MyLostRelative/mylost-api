@@ -1,8 +1,13 @@
 import { Gender, RelationType, BloodType } from 'src/models/ad';
-import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AdInfoDTO {
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
+  userID: number;
+
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
@@ -16,7 +21,7 @@ export class AdInfoDTO {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  imageUrl: string;
+  imageUrl?: string;
 
   @ApiProperty()
   gender?: Gender;

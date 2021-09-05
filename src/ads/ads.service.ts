@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Ad } from '../models/ad';
 import { ads } from '../data/ads.data';
-import { UsersService } from 'src/users/users.service';
+import { AdInfoDTO } from 'src/dto/ad-info.dto';
 
 @Injectable()
 export class AdsService {
@@ -21,46 +21,78 @@ export class AdsService {
         city: ad.city,
         relationType: ad.relationType,
         bloodType: ad.bloodType,
-        userID: 1,
+        userID: ad.userID,
         createDate: curDate,
       };
       this.adsDatabase.push(newAd);
     });
   }
 
-  getAds(): Ad[] {
-    return this.adsDatabase;
+  async getAds(): Promise<{ result: Ad[] }> {
+    return { result: this.adsDatabase };
   }
 
-  getAd(adId: number): Ad {
-    return this.adsDatabase.find((ad) => ad.id === adId);
+  async getAd(adId: number): Promise<{ result: Ad }> {
+    return { result: this.adsDatabase.find((ad) => ad.id === adId) };
   }
 
-  getAdByUser(userId: number): Ad[] {
+  async getAdByUser(userId: number): Promise<{ result: Ad[] }> {
     const foundData: Ad[] = [];
     this.adsDatabase.map((ad) => {
       if (ad.userID == userId) foundData.push(ad);
     });
-    return foundData;
+    return { result: foundData };
   }
 
-  createAd(ad: Ad): void {
-    ad.id = this.adsDatabase.length
+  async createAd(adInfo: AdInfoDTO): Promise<any> {
+    if (adInfo.userID === undefined) return { result: 'no user ID' };
+    const curDate: Date = new Date();
+    const newId = this.adsDatabase.length
       ? this.adsDatabase[this.adsDatabase.length - 1].id + 1
       : 1;
-    this.adsDatabase.push(ad);
+    const newAd: Ad = {
+      id: newId,
+      title: adInfo.title,
+      description: adInfo.description,
+      imageUrl: adInfo.imageUrl,
+      gender: adInfo.gender,
+      city: adInfo.city,
+      relationType: adInfo.relationType,
+      bloodType: adInfo.bloodType,
+      userID: adInfo.userID,
+      createDate: curDate,
+    };
+
+    this.adsDatabase.push(newAd);
   }
 
-  deleteAd(adId: number): void {
+  async deleteAd(adId: number): Promise<void> {
     this.adsDatabase = this.adsDatabase.filter((ad) => ad.id !== adId);
   }
 
-  updateAd(ad: Ad): void {
-    const foundIndex = this.adsDatabase.findIndex(
-      (adItem) => adItem.id === +ad.id,
+  async updateAd(adId: number, adInfo: AdInfoDTO): Promise<void> {
+    let foundAd = this.adsDatabase.find(
+      (ad) => ad.id === adId && ad.userID === adInfo.userID,
     );
+
+    const foundIndex = this.adsDatabase.findIndex(
+      (adItem) => adItem.id === adId && adItem.userID === adInfo.userID,
+    );
+    foundAd = this.adsDatabase[foundIndex];
     if (foundIndex > -1) {
-      this.adsDatabase[foundIndex] = ad;
+      foundAd = {
+        id: foundAd.id,
+        title: adInfo.title,
+        description: adInfo.description,
+        imageUrl: adInfo.imageUrl,
+        gender: adInfo.gender,
+        city: adInfo.city,
+        relationType: adInfo.relationType,
+        bloodType: adInfo.bloodType,
+        userID: foundAd.userID,
+        createDate: foundAd.createDate,
+      };
+      this.adsDatabase[foundIndex] = foundAd;
     }
   }
 }

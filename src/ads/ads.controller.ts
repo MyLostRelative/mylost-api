@@ -8,6 +8,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { AdInfoDTO } from 'src/dto/ad-info.dto';
 import { Ad } from 'src/models/ad';
 import { AdsService } from './ads.service';
 
@@ -17,26 +18,26 @@ export class AdsController {
 
   @Get()
   async getAds(): Promise<{ result: Ad[] }> {
-    return { result: this.adsService.getAds() };
+    return this.adsService.getAds();
   }
 
   @Get('/:adId')
   async getAd(
     @Param('adId', ParseIntPipe) idId: number,
   ): Promise<{ result: Ad }> {
-    return { result: this.adsService.getAd(idId) };
+    return this.adsService.getAd(idId);
   }
 
   @Get('user/:userId')
   async getAdByUser(
     @Param('userId', ParseIntPipe) idId: number,
   ): Promise<{ result: Ad[] }> {
-    return { result: this.adsService.getAdByUser(idId) };
+    return this.adsService.getAdByUser(idId);
   }
 
   @Post()
-  async createAd(@Body() ad: Ad): Promise<void> {
-    this.adsService.createAd(ad);
+  async createAd(@Body() adInfo: AdInfoDTO): Promise<void> {
+    this.adsService.createAd(adInfo);
   }
 
   @Delete('/:adId')
@@ -44,8 +45,11 @@ export class AdsController {
     this.adsService.deleteAd(adId);
   }
 
-  @Put()
-  async updateAd(@Body() ad: Ad): Promise<void> {
-    this.adsService.updateAd(ad);
+  @Put('/:adId')
+  async updateAd(
+    @Param('adId', ParseIntPipe) adId: number,
+    @Body() adInfo: AdInfoDTO,
+  ): Promise<void> {
+    this.adsService.updateAd(adId, adInfo);
   }
 }
