@@ -64,13 +64,15 @@ export class AdsService {
     };
 
     this.adsDatabase.push(newAd);
+    return { result: newId };
   }
 
-  async deleteAd(adId: number): Promise<void> {
+  async deleteAd(adId: number): Promise<any> {
     this.adsDatabase = this.adsDatabase.filter((ad) => ad.id !== adId);
+    return { result: 'Ad is deleted' };
   }
 
-  async updateAd(adId: number, adInfo: AdInfoDTO): Promise<void> {
+  async updateAd(adId: number, adInfo: AdInfoDTO): Promise<any> {
     console.log(this.adsDatabase);
     const foundIndex = this.adsDatabase.findIndex(
       (adItem) => adItem.id === +adId && adItem.userID === +adInfo.userID,
@@ -92,6 +94,8 @@ export class AdsService {
         createDate: foundAd.createDate,
       };
       this.adsDatabase[foundIndex] = foundAd;
+      return { result: foundAd.id };
     }
+    return { result: 'Ads info error' };
   }
 }

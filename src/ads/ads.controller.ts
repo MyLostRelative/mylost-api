@@ -36,20 +36,20 @@ export class AdsController {
   }
 
   @Post()
-  async createAd(@Body() adInfo: AdInfoDTO): Promise<void> {
-    this.adsService.createAd(adInfo);
+  async createAd(@Body() adInfo: AdInfoDTO): Promise<any> {
+    return this.adsService.createAd(adInfo);
   }
 
   @Delete('/:adId')
-  async deleteAd(@Param('adId', ParseIntPipe) adId: number): Promise<void> {
-    this.adsService.deleteAd(adId);
+  async deleteAd(@Param('adId', ParseIntPipe) adId: number): Promise<any> {
+    return this.adsService.deleteAd(adId);
   }
 
   @Put('/:adId')
   async updateAd(
     @Param('adId', ParseIntPipe) adId: number,
     @Body() adInfo: AdInfoDTO,
-  ): Promise<void> {
-    this.adsService.updateAd(adId, adInfo);
+  ): Promise<any> {
+    return this.adsService.updateAd(adId, adInfo);
   }
 }
