@@ -27,6 +27,13 @@ export class AdsController {
     return { result: this.adsService.getAd(idId) };
   }
 
+  @Get('user/:userId')
+  async getAdByUser(
+    @Param('userId', ParseIntPipe) idId: number,
+  ): Promise<{ result: Ad[] }> {
+    return { result: this.adsService.getAdByUser(idId) };
+  }
+
   @Post()
   async createAd(@Body() ad: Ad): Promise<void> {
     this.adsService.createAd(ad);

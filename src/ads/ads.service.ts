@@ -36,6 +36,14 @@ export class AdsService {
     return this.adsDatabase.find((ad) => ad.id === adId);
   }
 
+  getAdByUser(userId: number): Ad[] {
+    const foundData: Ad[] = [];
+    this.adsDatabase.map((ad) => {
+      if (ad.userID == userId) foundData.push(ad);
+    });
+    return foundData;
+  }
+
   createAd(ad: Ad): void {
     ad.id = this.adsDatabase.length
       ? this.adsDatabase[this.adsDatabase.length - 1].id + 1
