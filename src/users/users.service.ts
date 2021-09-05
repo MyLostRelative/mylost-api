@@ -12,24 +12,26 @@ export class UsersService {
   private logger = new Logger('AuthService');
   constructor(private jwtService: JwtService) {
     users.map(async (curUser) => {
+      const curSalt = await bcrypt.genSalt();
+      const hash = await bcrypt.hash(curUser.password, curSalt);
+      const newID = this.usersDatabase.length
+        ? this.usersDatabase[this.usersDatabase.length - 1].id + 1
+        : 1;
+
       const newUser: User = {
+        id: newID,
         userName: curUser.userName,
         firstName: curUser.firstName,
         lastName: curUser.lastName,
         avatarURL: curUser.avatarURL,
         email: curUser.email,
         mobileNumber: curUser.mobileNumber,
-        salt: '',
-        passwordHash: '',
-        id: -1,
+        salt: curSalt,
+        passwordHash: hash,
         role: curUser.role,
       };
-      newUser.salt = await bcrypt.genSalt();
-      newUser.passwordHash = await bcrypt.hash(curUser.password, newUser.salt);
-      newUser.id = this.usersDatabase.length
-        ? this.usersDatabase[this.usersDatabase.length - 1].id + 1
-        : 1;
-      this.usersDatabase.push(newUser);
+
+      newUser.id = this.usersDatabase.push(newUser);
     });
   }
 

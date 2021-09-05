@@ -71,14 +71,13 @@ export class AdsService {
   }
 
   async updateAd(adId: number, adInfo: AdInfoDTO): Promise<void> {
-    let foundAd = this.adsDatabase.find(
-      (ad) => ad.id === adId && ad.userID === adInfo.userID,
+    console.log(this.adsDatabase);
+    const foundIndex = this.adsDatabase.findIndex(
+      (adItem) => adItem.id === +adId && adItem.userID === +adInfo.userID,
     );
 
-    const foundIndex = this.adsDatabase.findIndex(
-      (adItem) => adItem.id === adId && adItem.userID === adInfo.userID,
-    );
-    foundAd = this.adsDatabase[foundIndex];
+    let foundAd = this.adsDatabase[foundIndex];
+
     if (foundIndex > -1) {
       foundAd = {
         id: foundAd.id,
