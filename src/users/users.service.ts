@@ -38,8 +38,11 @@ export class UsersService {
     return this.usersDatabase;
   }
 
-  getUser(userId: number): User {
-    return this.usersDatabase.find((user) => user.id === userId);
+  getUser(userId: number): any {
+    const { firstName, email, mobileNumber, ...rest } = this.usersDatabase.find(
+      (user) => user.id === userId,
+    );
+    return { firstName, email, mobileNumber };
   }
 
   async findOne(username: string): Promise<User | undefined> {
