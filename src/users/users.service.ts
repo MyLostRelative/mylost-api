@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Role, User } from '../models/user';
 import { users } from '../data/users.data';
 import * as bcrypt from 'bcrypt';
-import { AuthCredentialsDTO } from '../dto/auth-credentials.dto';
 import { JwtPayload } from './jwt-payload.interface';
 import { JwtService } from '@nestjs/jwt';
 import { UserInfoDTO } from '../dto/user-info.dto';
