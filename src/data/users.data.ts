@@ -1,4 +1,4 @@
-import { UserInfoDTO } from 'src/users/dto/user-info.dto';
+import { UserInfoDTO } from 'src/dto/user-info.dto';
 
 export const users: UserInfoDTO[] = [
   {

@@ -1,4 +1,4 @@
-export interface Ad {
+export class Ad {
   id: number;
   title: string;
   description: string;
@@ -7,6 +7,8 @@ export interface Ad {
   city?: string;
   relationType?: RelationType;
   bloodType?: BloodType;
+  userID: number;
+  createData: Date;
 }
 
 export enum Gender {
@@ -16,10 +18,10 @@ export enum Gender {
 }
 
 export enum BloodType {
+  O = 'o',
   A = 'a',
   B = 'b',
   AB = 'ab',
-  O = 'o',
 }
 
 export enum RelationType {

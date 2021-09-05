@@ -2,10 +2,10 @@ import { Injectable, Logger } from '@nestjs/common';
 import { User } from '../models/user';
 import { users } from '../data/users.data';
 import * as bcrypt from 'bcrypt';
-import { AuthCredentialsDTO } from './dto/auth-credentials.dto';
+import { AuthCredentialsDTO } from '../dto/auth-credentials.dto';
 import { JwtPayload } from './jwt-payload.interface';
 import { JwtService } from '@nestjs/jwt';
-import { UserInfoDTO } from './dto/user-info.dto';
+import { UserInfoDTO } from '../dto/user-info.dto';
 @Injectable()
 export class UsersService {
   private usersDatabase: User[] = [];

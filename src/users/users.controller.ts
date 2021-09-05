@@ -9,8 +9,8 @@ import {
   Put,
 } from '@nestjs/common';
 import { User } from 'src/models/user';
-import { AuthCredentialsDTO } from './dto/auth-credentials.dto';
-import { UserInfoDTO } from './dto/user-info.dto';
+import { AuthCredentialsDTO } from '../dto/auth-credentials.dto';
+import { UserInfoDTO } from '../dto/user-info.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')

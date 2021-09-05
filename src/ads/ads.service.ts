@@ -5,32 +5,54 @@ import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AdsService {
-  private ads: Ad[] = [];
+  private adsDatabase: Ad[] = [];
   constructor() {
-    this.ads = ads;
+    ads.map((ad) => {
+      const curDate: Date = new Date();
+      const newId = this.adsDatabase.length
+        ? this.adsDatabase[this.adsDatabase.length - 1].id + 1
+        : 1;
+      const newAd: Ad = {
+        id: newId,
+        title: ad.title,
+        description: ad.description,
+        imageUrl: ad.imageUrl,
+        gender: ad.gender,
+        city: ad.city,
+        relationType: ad.relationType,
+        bloodType: ad.bloodType,
+        userID: 1,
+        createData: curDate,
+      };
+      this.adsDatabase.push(newAd);
+    });
   }
 
   getAds(): Ad[] {
-    return this.ads;
+    return this.adsDatabase;
   }
 
   getAd(adId: number): Ad {
-    return this.ads.find((ad) => ad.id === adId);
+    return this.adsDatabase.find((ad) => ad.id === adId);
   }
 
   createAd(ad: Ad): void {
-    ad.id = this.ads.length ? this.ads[this.ads.length - 1].id + 1 : 1;
-    this.ads.push(ad);
+    ad.id = this.adsDatabase.length
+      ? this.adsDatabase[this.adsDatabase.length - 1].id + 1
+      : 1;
+    this.adsDatabase.push(ad);
   }
 
   deleteAd(adId: number): void {
-    this.ads = this.ads.filter((ad) => ad.id !== adId);
+    this.adsDatabase = this.adsDatabase.filter((ad) => ad.id !== adId);
   }
 
   updateAd(ad: Ad): void {
-    const foundIndex = this.ads.findIndex((adItem) => adItem.id === +ad.id);
+    const foundIndex = this.adsDatabase.findIndex(
+      (adItem) => adItem.id === +ad.id,
+    );
     if (foundIndex > -1) {
-      this.ads[foundIndex] = ad;
+      this.adsDatabase[foundIndex] = ad;
     }
   }
 }
