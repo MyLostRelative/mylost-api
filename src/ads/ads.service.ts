@@ -63,7 +63,7 @@ export class AdsService {
       city: adInfo.city,
       relationType: adInfo.relationType,
       bloodType: adInfo.bloodType,
-      userID: adInfo.userID,
+      userID: +adInfo.userID,
       createDate: curDate,
     };
 
