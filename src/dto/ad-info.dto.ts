@@ -43,6 +43,10 @@ export class AdInfoDTO {
   @ApiPropertyOptional()
   @IsEnum(BloodType)
   bloodType?: BloodType;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  age?: number;
 }
 
 export class AdSearchDTO {
@@ -50,7 +54,7 @@ export class AdSearchDTO {
   @IsOptional()
   @MaxLength(64)
   @IsString()
-  query: string | null = null;
+  query?: string | null = null;
 
   // @ApiPropertyOptional()
   // @IsOptional()
@@ -74,4 +78,12 @@ export class AdSearchDTO {
   @ApiPropertyOptional()
   @IsEnum(BloodType)
   bloodType?: BloodType;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  fromAge?: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  toAge?: number;
 }

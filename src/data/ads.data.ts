@@ -16,6 +16,7 @@ export const ads: AdInfoDTO[] = [
     city: 'თბილისი',
     relationType: RelationType.DAUGHTER,
     bloodType: BloodType.A,
+    age: 12,
   },
   {
     userID: 1,
@@ -28,6 +29,7 @@ export const ads: AdInfoDTO[] = [
     city: 'თბილისი',
     relationType: RelationType.MOTHER,
     bloodType: BloodType.A,
+    age: 13,
   },
   {
     userID: 1,
@@ -40,6 +42,7 @@ export const ads: AdInfoDTO[] = [
     city: 'თბილისი',
     relationType: RelationType.FATHER,
     bloodType: BloodType.B,
+    age: 20,
   },
   {
     userID: 1,
@@ -51,6 +54,7 @@ export const ads: AdInfoDTO[] = [
     gender: Gender.FEMALE,
     city: 'ქუთაისი',
     relationType: RelationType.MOTHER,
+    age: 22,
   },
   {
     userID: 1,
@@ -59,6 +63,7 @@ export const ads: AdInfoDTO[] = [
       'დღევანდელი დღე ცოლ-ქმრულ ურთიერთობას უფრო ჰარმონიულს გახდის. სასიყვარულო პაემანი გადადეთ - ეს კარგს არაფერს მოგიტანთ. მატერიალური შეფერხებები გელით. შესაძლოა გავლენიან ადამიანებთან შეხვედრა.',
     imageUrl:
       'https://server6.intermedia.ge/article_images/small/201603/2016033020250110302.jpg',
+    age: 40,
   },
   {
     userID: 1,

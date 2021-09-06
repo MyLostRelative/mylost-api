@@ -23,8 +23,8 @@ export class AdsController {
   }
 
   @Get()
-  async getAds(): Promise<{ result: Ad[] }> {
-    return this.adsService.getAds();
+  async getAds(@Query() query: AdSearchDTO): Promise<{ result: Ad[] }> {
+    return this.adsService.getAds(query);
   }
 
   @Get('/:adId')

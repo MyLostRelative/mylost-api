@@ -23,6 +23,7 @@ export class AdsService {
         bloodType: ad.bloodType,
         userID: ad.userID,
         createDate: curDate,
+        age: ad.age,
       };
       this.adsDatabase.push(newAd);
     });
@@ -32,8 +33,38 @@ export class AdsService {
     return { result: this.adsDatabase };
   }
 
-  async getAds(): Promise<{ result: Ad[] }> {
-    return { result: this.adsDatabase };
+  async getAds(query: AdSearchDTO): Promise<{ result: Ad[] }> {
+    if (
+      !(
+        query.relationType ||
+        query.gender ||
+        query.fromAge ||
+        query.toAge ||
+        query.bloodType ||
+        query.city ||
+        query.query
+      )
+    ) {
+      return { result: this.adsDatabase };
+    }
+    const filteredData: Ad[] = this.adsDatabase
+      .filter((ad) =>
+        query.relationType ? ad.relationType === query.relationType : true,
+      )
+      .filter((ad) => (query.gender ? ad.gender === query.gender : true))
+      .filter((ad) => (+query.fromAge ? ad.age >= query.fromAge : true))
+      .filter((ad) => (+query.toAge ? ad.age <= query.toAge : true))
+      .filter((ad) =>
+        query.bloodType ? ad.bloodType === query.bloodType : true,
+      )
+      .filter((ad) => (query.city ? ad.city === query.city : true))
+      .filter((ad) =>
+        query.query
+          ? ad.description.includes(query.query) ||
+            ad.title.includes(query.query)
+          : true,
+      );
+    return { result: filteredData };
   }
 
   async getAd(adId: number): Promise<{ result: Ad }> {
@@ -65,6 +96,7 @@ export class AdsService {
       bloodType: adInfo.bloodType,
       userID: +adInfo.userID,
       createDate: curDate,
+      age: +adInfo.age,
     };
 
     this.adsDatabase.push(newAd);
@@ -96,6 +128,7 @@ export class AdsService {
         bloodType: adInfo.bloodType,
         userID: foundAd.userID,
         createDate: foundAd.createDate,
+        age: foundAd.age,
       };
       this.adsDatabase[foundIndex] = foundAd;
       return { result: foundAd.id };

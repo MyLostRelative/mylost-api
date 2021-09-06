@@ -9,6 +9,7 @@ export class Ad {
   bloodType?: BloodType;
   userID: number;
   createDate: Date;
+  age: number;
 }
 
 export enum Gender {
